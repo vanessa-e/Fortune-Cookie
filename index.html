@@ -5,110 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glückskeks</title>
 <style>
+
+/* 📌 Grundlayout */
 body {
-    margin:0;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    background:#FFDDE4; /* pudriges Rosa */
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:#333;
-    text-align:center;
-    padding:2rem;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFDDE4; /* pudrig rosa */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-#cookie-container {
+
+/* 📌 Kekscontainer */
+#cookie {
     position: relative;
-    width: 150px;
-    height: 80px;
-    perspective: 600px;
-    margin-bottom:2rem;
+    width: 180px;
+    height: 100px;
 }
-.half {
+
+/* 🍪 Geschlossene Keksform */
+.cookie-base {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #F5DEB3 60%, #E8C89C 95%);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: inset -4px -4px 8px rgba(0,0,0,0.15);
+    transition: transform 0.8s ease-in-out;
+}
+
+/* 🍪 Aufplatz‑Animation */
+.cookie-base.open {
+    transform: scaleX(1.1) scaleY(1.1) translateY(-10px);
+}
+
+/* 📜 Sprucht bzw. Zettel */
+#fortune {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: transform 1s ease;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    font-weight: 500;
+    width: 220px;
+    color: #333;
+    transition: opacity 1s ease, transform 0.7s ease;
 }
-.half.left svg, .half.right svg {
-    width: 100%;
-    height: 100%;
+#fortune.visible {
+    opacity: 1;
+    transform: translate(-50%, 0px);
 }
-.half.left {
-    transform-origin: right center;
-}
-.half.right {
-    transform-origin: left center;
-}
-.half.open-left {
-    transform: rotateZ(-45deg) translateX(-50px) translateY(-20px);
-}
-.half.open-right {
-    transform: rotateZ(45deg) translateX(50px) translateY(-20px);
-}
-.quote {
-    max-width:600px;
-    font-size:1.6rem;
-    line-height:1.6;
-    opacity:0;
-    transition: opacity 1s ease;
-}
+
 </style>
 </head>
 <body>
 
-<div id="cookie-container">
-    <div class="half left" id="left-half">
-        <!-- SVG linke Hälfte -->
-        <svg viewBox="0 0 100 50">
-            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
-        </svg>
-    </div>
-    <div class="half right" id="right-half">
-        <!-- SVG rechte Hälfte -->
-        <svg viewBox="0 0 100 50">
-            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
-        </svg>
-    </div>
+<div id="cookie">
+    <div class="cookie-base" id="cookie-base"></div>
+    <div id="fortune"></div>
 </div>
 
-<div class="quote" id="quote"></div>
-
 <script>
+// 🎲 Sprüche‑Pool
 const quotes = [
-"Heute ist ein guter Tag, um sich selbst freundlich zuzunicken.",
-"Du musst nicht perfekt sein. Nur echt – das reicht völlig.",
-"Ein Lächeln steht dir besser als jeder Filter.",
-"Dein Kaffee wird heute besonders gut schmecken. Vertrau mir.",
-"Du bringst mehr Licht in Räume, als du denkst.",
-"Selbst kleine Schritte hinterlassen große Spuren.",
-"Irgendwer denkt heute an dich – wahrscheinlich mit einem Lächeln.",
-"Mut steht dir. Auch in kleinen Portionen.",
-"Wenn Plan A nicht klappt, lächle und probier Plan B. Oder Snack.",
-"Heute darfst du stolz auf dich sein. Einfach so.",
-"Dein Humor ist eine Superkraft. Bitte weiter benutzen.",
-"Das Leben mag Überraschungen. Zum Glück magst du sie auch."
+    "Heute erwartet dich ein kleines Wunder.",
+    "Ein Lächeln kann deinen Tag verändern.",
+    "Du bringst mehr Freude in die Welt als du denkst.",
+    "Mut wächst mit jedem neuen Versuch.",
+    "Deine Kreativität leuchtet heute hell.",
+    "Ein unerwartetes Glück kommt auf dich zu.",
+    "Heute dürftest du jemanden zum Lächeln bringen.",
+    "Es ist ein guter Tag, um etwas Neues zu wagen."
 ];
 
+// 🍪 Animation & Text‑Einblendung nach Laden
 window.addEventListener('load', () => {
-    const left = document.getElementById('left-half');
-    const right = document.getElementById('right-half');
-    const quote = document.getElementById('quote');
+    const cookieBase = document.getElementById('cookie-base');
+    const fortuneText = document.getElementById('fortune');
 
-    // Keks „aufplatzen“ nach 1 Sekunde
-    setTimeout(() => {
-        left.classList.add('open-left');
-        right.classList.add('open-right');
-    }, 1000);
+    // Zufälligen Spruch auswählen
+    const random = Math.floor(Math.random() * quotes.length);
+    fortuneText.textContent = quotes[random];
 
-    // Spruch einblenden nach 2 Sekunden
+    // 🍪 Öffnen nach kurzer Verzögerung
     setTimeout(() => {
-        const random = Math.floor(Math.random() * quotes.length);
-        quote.textContent = quotes[random];
-        quote.style.opacity = 1;
-    }, 2000);
+        cookieBase.classList.add('open');
+        setTimeout(() => {
+            fortuneText.classList.add('visible');
+        }, 500); // Text erscheint nach Öffnen
+    }, 800);
 });
+
 </script>
 
 </body>
