@@ -29,9 +29,11 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortune_cookie_icon.png') no-repeat center/contain;
-    background-size: contain;
     transition: transform 1s ease;
+}
+.half.left svg, .half.right svg {
+    width: 100%;
+    height: 100%;
 }
 .half.left {
     transform-origin: right center;
@@ -55,10 +57,22 @@ body {
 </style>
 </head>
 <body>
+
 <div id="cookie-container">
-    <div class="half left" id="left-half"></div>
-    <div class="half right" id="right-half"></div>
+    <div class="half left" id="left-half">
+        <!-- SVG linke Hälfte -->
+        <svg viewBox="0 0 100 50">
+            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
+        </svg>
+    </div>
+    <div class="half right" id="right-half">
+        <!-- SVG rechte Hälfte -->
+        <svg viewBox="0 0 100 50">
+            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
+        </svg>
+    </div>
 </div>
+
 <div class="quote" id="quote"></div>
 
 <script>
@@ -82,7 +96,7 @@ window.addEventListener('load', () => {
     const right = document.getElementById('right-half');
     const quote = document.getElementById('quote');
 
-    // Keks aufplatzen nach 1 Sekunde
+    // Keks „aufplatzen“ nach 1 Sekunde
     setTimeout(() => {
         left.classList.add('open-left');
         right.classList.add('open-right');
@@ -96,5 +110,6 @@ window.addEventListener('load', () => {
     }, 2000);
 });
 </script>
+
 </body>
 </html>
