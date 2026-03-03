@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glückskeks</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9f7f3;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #333;
+        text-align: center;
+        padding: 2rem;
+        cursor: pointer;
+    }
+    .quote {
+        max-width: 600px;
+        font-size: 1.6rem;
+        line-height: 1.6;
+        transition: opacity 0.4s ease;
+    }
+    .hint {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.8rem;
+        opacity: 0.4;
+    }
+</style>
+</head>
+<body>
+<div class="quote" id="quote"></div>
+<div class="hint">Klick irgendwo für einen neuen Spruch</div>
 
+<script>
+const quotes = [
+    "Heute ist ein guter Tag, um sich selbst freundlich zuzunicken.",
+    "Du musst nicht perfekt sein. Nur echt – das reicht völlig.",
+    "Ein Lächeln steht dir besser als jeder Filter.",
+    "Dein Kaffee wird heute besonders gut schmecken. Vertrau mir.",
+    "Du bringst mehr Licht in Räume, als du denkst.",
+    "Selbst kleine Schritte hinterlassen große Spuren.",
+    "Irgendwer denkt heute an dich – wahrscheinlich mit einem Lächeln.",
+    "Mut steht dir. Auch in kleinen Portionen.",
+    "Wenn Plan A nicht klappt, lächle und probier Plan B. Oder Snack.",
+    "Heute darfst du stolz auf dich sein. Einfach so.",
+    "Dein Humor ist eine Superkraft. Bitte weiter benutzen.",
+    "Das Leben mag Überraschungen. Zum Glück magst du sie auch."
+];
+
+function newQuote() {
+    const quoteElement = document.getElementById("quote");
+    quoteElement.style.opacity = 0;
+    setTimeout(() => {
+        const random = Math.floor(Math.random() * quotes.length);
+        quoteElement.textContent = quotes[random];
+        quoteElement.style.opacity = 1;
+    }, 200);
+}
+
+document.body.addEventListener("click", newQuote);
+newQuote();
+</script>
+</body>
+</html>
