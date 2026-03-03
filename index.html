@@ -6,27 +6,28 @@
 <title>Glücksspruch</title>
 <style>
 body {
-    margin:0;
-    height:100vh;
-    display:flex;
-    align-items:flex-start; /* oben ausgerichtet */
-    justify-content:center;
-    background:#FFDDE4; /* pudrig rosa */
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    overflow: hidden; /* Kreis kann angeschnitten sein */
+    margin: 0;
+    height: 100vh;
+    background: #FFDDE4; /* pudrig rosa */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
 }
 
 #circle {
-    width: 500px;  /* großer Kreis */
-    height: 500px; /* großer Kreis */
-    background: #FFE4E1; /* hellrosa */
-    border-radius: 50%; /* perfekt rund */
+    width: 14cm; 
+    height: 14cm; 
+    background: #FFE4E1; /* hellrosa Kreis */
+    border-radius: 50%; /* kreisrund */
+    position: absolute;
+    /* Goldener Schnitt */
+    left: 38.2%;   /* ca. 61,8% vom linken Rand für Mittelpunkt? */
+    top: 38.2%;    /* leicht nach oben */
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
     animation: pulse 3s ease-in-out infinite alternate;
-    position: relative;
-    top: -150px; /* nach oben verschoben, exzentrisch, angeschnitten */
 }
 
 #quote-box {
@@ -82,6 +83,7 @@ window.addEventListener('load', () => {
     const random = Math.floor(Math.random() * quotes.length);
     quoteBox.textContent = quotes[random];
 
+    // Fade-In aktivieren
     setTimeout(() => {
         quoteBox.classList.add('show');
     }, 200);
