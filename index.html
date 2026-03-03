@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glückskeks</title>
+<title>Glücksspruch</title>
 <style>
 body {
     margin:0;
@@ -15,79 +15,37 @@ body {
     font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-#cookie-container {
-    position: relative;
+#circle {
+    width: 250px;
+    height: 250px;
+    background: #FFE4E1; /* hellrosa Kreis */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#quote-box {
     width: 200px;
-    height: 100px;
-    perspective: 600px;
-}
-
-/* Keks-Hälften */
-.half {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-.half.left {
-    transform-origin: right center;
-}
-.half.right {
-    transform-origin: left center;
-}
-
-/* SVG-Hälften */
-.half svg {
-    width: 100%;
-    height: 100%;
-}
-
-/* Animation beim Aufplatzen */
-.half.open-left {
-    transform: rotateZ(-45deg) translateX(-60px) translateY(-10px);
-}
-.half.open-right {
-    transform: rotateZ(45deg) translateX(60px) translateY(-10px);
-}
-
-/* Spruch, der aus dem Keks kommt */
-#quote {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, 20px);
-    max-width:180px;
-    text-align:center;
-    font-size:1rem;
-    line-height:1.4;
-    font-weight:500;
-    color:#333;
-    opacity:0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-#quote.show {
-    opacity:1;
-    transform: translate(-50%, 0px);
+    height: 50px; /* Verhältnis 4:1 */
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 </style>
 </head>
 <body>
 
-<div id="cookie-container">
-    <!-- Linke Keks-Hälfte -->
-    <div class="half left" id="left-half">
-        <svg viewBox="0 0 100 50">
-            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
-        </svg>
-    </div>
-    <!-- Rechte Keks-Hälfte -->
-    <div class="half right" id="right-half">
-        <svg viewBox="0 0 100 50">
-            <path d="M0,50 C25,0 75,0 100,50 Z" fill="#F5DEB3"/>
-        </svg>
-    </div>
-    <!-- Spruch -->
-    <div id="quote"></div>
+<div id="circle">
+    <div id="quote-box"></div>
 </div>
 
 <script>
@@ -102,22 +60,11 @@ const quotes = [
 "Ein guter Tag, um Neues zu wagen."
 ];
 
+// Spruch zufällig auswählen
 window.addEventListener('load', () => {
-    const left = document.getElementById('left-half');
-    const right = document.getElementById('right-half');
-    const quote = document.getElementById('quote');
-
-    // Keks aufplatzen
-    setTimeout(() => {
-        left.classList.add('open-left');
-        right.classList.add('open-right');
-        // Spruch kurz danach
-        setTimeout(() => {
-            const random = Math.floor(Math.random() * quotes.length);
-            quote.textContent = quotes[random];
-            quote.classList.add('show');
-        }, 500);
-    }, 1000);
+    const quoteBox = document.getElementById('quote-box');
+    const random = Math.floor(Math.random() * quotes.length);
+    quoteBox.textContent = quotes[random];
 });
 </script>
 
