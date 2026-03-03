@@ -9,22 +9,24 @@ body {
     margin:0;
     height:100vh;
     display:flex;
-    align-items:flex-start; /* Kreis nicht mittig, nach oben ausgerichtet */
+    align-items:flex-start; /* oben ausgerichtet */
     justify-content:center;
     background:#FFDDE4; /* pudrig rosa */
     font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    padding-top: 80px; /* etwas Abstand oben */
+    overflow: hidden; /* Kreis kann angeschnitten sein */
 }
 
 #circle {
-    width: 500px;  /* deutlich größer */
-    height: 500px; /* deutlich größer */
-    background: #FFE4E1; /* hellrosa Kreis */
-    border-radius: 50%;
+    width: 500px;  /* großer Kreis */
+    height: 500px; /* großer Kreis */
+    background: #FFE4E1; /* hellrosa */
+    border-radius: 50%; /* perfekt rund */
     display: flex;
     align-items: center;
     justify-content: center;
     animation: pulse 3s ease-in-out infinite alternate;
+    position: relative;
+    top: -150px; /* nach oben verschoben, exzentrisch, angeschnitten */
 }
 
 #quote-box {
@@ -51,7 +53,6 @@ body {
     transform: translateY(0);
 }
 
-/* Leichtes Pulsieren des Kreises */
 @keyframes pulse {
     0% { transform: scale(1); }
     100% { transform: scale(1.03); }
@@ -81,7 +82,6 @@ window.addEventListener('load', () => {
     const random = Math.floor(Math.random() * quotes.length);
     quoteBox.textContent = quotes[random];
 
-    // Fade-In aktivieren
     setTimeout(() => {
         quoteBox.classList.add('show');
     }, 200);
