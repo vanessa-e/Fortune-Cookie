@@ -9,36 +9,52 @@ body {
     margin:0;
     height:100vh;
     display:flex;
-    align-items:center;
+    align-items:flex-start; /* Kreis nicht mittig, nach oben ausgerichtet */
     justify-content:center;
     background:#FFDDE4; /* pudrig rosa */
     font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding-top: 80px; /* etwas Abstand oben */
 }
 
 #circle {
-    width: 250px;
-    height: 250px;
+    width: 500px;  /* deutlich größer */
+    height: 500px; /* deutlich größer */
     background: #FFE4E1; /* hellrosa Kreis */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: pulse 3s ease-in-out infinite alternate;
 }
 
 #quote-box {
-    width: 200px;
-    height: 50px; /* Verhältnis 4:1 */
+    width: 220px;
+    height: 55px; /* Verhältnis 4:1 */
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 0 10px;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
     color: #000;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+#quote-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Leichtes Pulsieren des Kreises */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.03); }
 }
 </style>
 </head>
@@ -60,11 +76,15 @@ const quotes = [
 "Ein guter Tag, um Neues zu wagen."
 ];
 
-// Spruch zufällig auswählen
 window.addEventListener('load', () => {
     const quoteBox = document.getElementById('quote-box');
     const random = Math.floor(Math.random() * quotes.length);
     quoteBox.textContent = quotes[random];
+
+    // Fade-In aktivieren
+    setTimeout(() => {
+        quoteBox.classList.add('show');
+    }, 200);
 });
 </script>
 
