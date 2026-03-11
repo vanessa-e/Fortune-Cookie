@@ -4,70 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glücksspruch</title>
+
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    background: #FFDDE4; /* pudrig rosa */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    position: relative;
-    overflow: hidden;
+
+body{
+margin:0;
+height:100vh;
+background:#FFDDE4;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+position:relative;
+overflow:hidden;
 }
 
-#circle {
-    width: 14cm; 
-    height: 14cm; 
-    background: #FFE4E1; /* hellrosa Kreis */
-    border-radius: 50%; /* kreisrund */
-    position: absolute;
-    /* Goldener Schnitt */
-    left: 38.2%;   /* ca. 61,8% vom linken Rand für Mittelpunkt? */
-    top: 38.2%;    /* leicht nach oben */
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulse 3s ease-in-out infinite alternate;
+/* Kreis bleibt nach goldenem Schnitt positioniert */
+
+#circle{
+width:14cm;
+height:14cm;
+background:#FFE4E1;
+border-radius:50%;
+position:absolute;
+
+left:38.2%;
+top:38.2%;
+
+transform:translate(-50%,-50%);
 }
 
-#quote-box {
-    width: 220px;
-    height: 55px; /* Verhältnis 4:1 */
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 10px;
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: #000;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 1s ease, transform 1s ease;
+/* Spruch jetzt exakt Bildschirmmitte */
+
+#quote-box{
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:240px;
+height:60px;
+
+background:#ffffff;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-align:center;
+padding:10px;
+
+font-size:1.05rem;
+font-weight:500;
+color:#000;
+
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+
+/* keine Rundungen */
+border-radius:0;
+
+opacity:0;
+transition:opacity 1s ease;
 }
 
-#quote-box.show {
-    opacity: 1;
-    transform: translateY(0);
+#quote-box.show{
+opacity:1;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.03); }
-}
 </style>
 </head>
+
 <body>
 
-<div id="circle">
-    <div id="quote-box"></div>
-</div>
+<div id="circle"></div>
+
+<div id="quote-box"></div>
 
 <script>
+
 const quotes = [
+
 "Ein kleines Wunder erwartet dich heute.",
 "Dein Lächeln verändert die Welt.",
 "Mut wächst mit jedem neuen Versuch.",
@@ -75,19 +90,27 @@ const quotes = [
 "Die Freude, die du gibst, kehrt zurück.",
 "Etwas Unerwartetes bringt dir Glück.",
 "Du wirst heute jemanden zum Lächeln bringen.",
-"Ein guter Tag, um Neues zu wagen."
+"Ein guter Tag, um Neues zu wagen.",
+"Neuer Tag, neues Glück! Du hast Glück!"
+
 ];
 
-window.addEventListener('load', () => {
-    const quoteBox = document.getElementById('quote-box');
-    const random = Math.floor(Math.random() * quotes.length);
-    quoteBox.textContent = quotes[random];
+window.addEventListener('load',()=>{
 
-    // Fade-In aktivieren
-    setTimeout(() => {
-        quoteBox.classList.add('show');
-    }, 200);
+const quoteBox=document.getElementById('quote-box');
+
+const random=Math.floor(Math.random()*quotes.length);
+
+quoteBox.textContent=quotes[random];
+
+setTimeout(()=>{
+
+quoteBox.classList.add('show');
+
+},200);
+
 });
+
 </script>
 
 </body>
