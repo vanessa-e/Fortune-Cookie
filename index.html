@@ -1,117 +1,156 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glücksspruch</title>
+  <meta charset="UTF-8">
 
-<style>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-body{
-margin:0;
-height:100vh;
-background:#FFDDE4;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-position:relative;
-overflow:hidden;
-}
+  <meta
+    name="description"
+    content="Dein persönlicher virtueller Glückskeks"
+  >
 
-/* Kreis bleibt nach goldenem Schnitt positioniert */
+  <title>Dein Glücksspruch</title>
 
-#circle{
-width:14cm;
-height:14cm;
-background:#FFE4E1;
-border-radius:50%;
-position:absolute;
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-left:38.2%;
-top:38.2%;
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
 
-transform:translate(-50%,-50%);
-}
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
 
-/* Spruch jetzt exakt Bildschirmmitte */
+      background: #FFDDE4;
 
-#quote-box{
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
 
-position:absolute;
-top:50%;
-left:50%;
+      position: relative;
+      overflow: hidden;
+    }
 
-transform:translate(-50%,-50%);
+    /* Kreis nach dem goldenen Schnitt positioniert */
 
-width:240px;
-height:60px;
+    #circle {
+      width: min(90vw, 530px);
+      aspect-ratio: 1 / 1;
 
-background:#ffffff;
+      background: #FFE4E1;
+      border-radius: 50%;
 
-display:flex;
-align-items:center;
-justify-content:center;
+      position: absolute;
+      left: 38.2%;
+      top: 38.2%;
 
-text-align:center;
-padding:10px;
+      transform: translate(-50%, -50%);
+    }
 
-font-size:1.05rem;
-font-weight:500;
-color:#000;
+    /* Glücksspruch in der Bildschirmmitte */
 
-box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    #quote-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
 
-/* keine Rundungen */
-border-radius:0;
+      transform: translate(-50%, -50%);
 
-opacity:0;
-transition:opacity 1s ease;
-}
+      width: min(280px, calc(100vw - 48px));
+      min-height: 80px;
 
-#quote-box.show{
-opacity:1;
-}
+      padding: 14px 18px;
 
-</style>
+      background: #ffffff;
+      color: #000000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.4;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+      /* Keine abgerundeten Ecken */
+      border-radius: 0;
+
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    #quote-box.show {
+      opacity: 1;
+    }
+
+    /* Bewegung reduzieren, wenn das Gerät dies verlangt */
+
+    @media (prefers-reduced-motion: reduce) {
+      #quote-box {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main>
+    <div id="circle" aria-hidden="true"></div>
 
-<div id="circle"></div>
+    <div
+      id="quote-box"
+      role="status"
+      aria-live="polite"
+    ></div>
+  </main>
 
-<div id="quote-box"></div>
+  <script>
+    const quotes = [
+      "Ein kleines Wunder erwartet dich heute.",
+      "Dein Lächeln verändert die Welt.",
+      "Mut wächst mit jedem neuen Versuch.",
+      "Heute darfst du stolz auf dich sein.",
+      "Die Freude, die du gibst, kehrt zurück.",
+      "Etwas Unerwartetes bringt dir Glück.",
+      "Du wirst heute jemanden zum Lächeln bringen.",
+      "Ein guter Tag, um Neues zu wagen.",
+      "Neuer Tag, neues Glück! Du hast Glück!"
+    ];
 
-<script>
+    function showRandomQuote() {
+      const quoteBox = document.getElementById("quote-box");
 
-const quotes = [
+      const randomIndex = Math.floor(
+        Math.random() * quotes.length
+      );
 
-"Ein kleines Wunder erwartet dich heute.",
-"Dein Lächeln verändert die Welt.",
-"Mut wächst mit jedem neuen Versuch.",
-"Heute darfst du stolz auf dich sein.",
-"Die Freude, die du gibst, kehrt zurück.",
-"Etwas Unerwartetes bringt dir Glück.",
-"Du wirst heute jemanden zum Lächeln bringen.",
-"Ein guter Tag, um Neues zu wagen.",
-"Neuer Tag, neues Glück! Du hast Glück!"
+      quoteBox.textContent = quotes[randomIndex];
 
-];
+      window.setTimeout(() => {
+        quoteBox.classList.add("show");
+      }, 200);
+    }
 
-window.addEventListener('load',()=>{
-
-const quoteBox=document.getElementById('quote-box');
-
-const random=Math.floor(Math.random()*quotes.length);
-
-quoteBox.textContent=quotes[random];
-
-setTimeout(()=>{
-
-quoteBox.classList.add('show');
-
-},200);
-
-});
-
-</script>
-
+    window.addEventListener("DOMContentLoaded", showRandomQuote);
+  </script>
 </body>
 </html>
